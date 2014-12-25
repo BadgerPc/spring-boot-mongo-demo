@@ -8,6 +8,8 @@ import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 /**
  * Created by msanaulla on 12/3/2014.
@@ -15,7 +17,12 @@ import org.springframework.context.annotation.Configuration;
 @EnableAutoConfiguration
 @ComponentScan
 @Configuration
-public class AppRunner {
+public class AppRunner extends WebMvcConfigurationSupport {
+
+    @Override
+    protected void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new ThymeleafLayoutInterceptor());
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(AppRunner.class, args);
